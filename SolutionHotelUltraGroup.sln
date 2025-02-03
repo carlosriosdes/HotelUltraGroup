@@ -13,15 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infraestructure", "Infraest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{174CB491-EE7C-4867-81B9-572B0A6FF1F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelApp.API", "HotelApp.API\HotelApp.API.csproj", "{D78F333B-38A1-4BE0-A53F-E3495CE4C17A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelApp.API", "HotelApp.API\HotelApp.API.csproj", "{D78F333B-38A1-4BE0-A53F-E3495CE4C17A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelApp.Application", "HotelApp.Application\HotelApp.Application.csproj", "{25013DAF-BF42-484D-B7A9-CE80B78D8BDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelApp.Application", "HotelApp.Application\HotelApp.Application.csproj", "{25013DAF-BF42-484D-B7A9-CE80B78D8BDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelApp.Domain", "HotelApp.Domain\HotelApp.Domain.csproj", "{A2C88155-7BF9-435E-91C3-ECEC3E46B6CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelApp.Domain", "HotelApp.Domain\HotelApp.Domain.csproj", "{A2C88155-7BF9-435E-91C3-ECEC3E46B6CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelApp.Infraestructure.Data", "HotelApp.Infraestructure.Data\HotelApp.Infraestructure.Data.csproj", "{66E5B73A-BA67-409C-B117-D4131967456E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelApp.Infraestructure.Persistence", "HotelApp.Infraestructure.Data\HotelApp.Infraestructure.Persistence.csproj", "{66E5B73A-BA67-409C-B117-D4131967456E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHotelApp", "TestHotelApp\TestHotelApp.csproj", "{2D4D34E5-9E2B-4CBE-837D-939501C03CBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHotelApp", "TestHotelApp\TestHotelApp.csproj", "{2D4D34E5-9E2B-4CBE-837D-939501C03CBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
