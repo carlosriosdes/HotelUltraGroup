@@ -1,9 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HotelApp.Application.Contracts;
+using HotelApp.Application.Services;
+using HotelApp.Domain.Contracts;
+using HotelApp.Infraestructure.Persistence.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HotelApp.Infraestructure.Persistence
 {
@@ -11,7 +10,11 @@ namespace HotelApp.Infraestructure.Persistence
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            
+            services.AddScoped<IHotelService, HotelService>();
+            services.AddScoped<IHotelRepository, HotelRepository>();
+
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
         }
     }
 }

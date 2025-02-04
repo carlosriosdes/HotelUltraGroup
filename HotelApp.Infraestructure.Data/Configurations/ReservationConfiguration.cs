@@ -8,22 +8,41 @@ namespace HotelApp.Infraestructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
+            builder.ToTable("Reservations");
+
             builder.HasKey(r => r.Id);
 
+            builder.Property(r => r.CheckInDate)
+                .IsRequired();
+
+            builder.Property(r => r.CheckOutDate)
+                .IsRequired();
+
             builder.Property(r => r.TotalPrice)
-                .HasColumnType("decimal(18,2)");
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
 
             builder.Property(r => r.EmergencyContactName)
-                .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(100)
+                .IsRequired();
 
             builder.Property(r => r.EmergencyContactPhone)
-                .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(15)
+                .IsRequired();
 
             builder.HasOne(r => r.Hotel)
-                .WithMany()
+                .WithMany(h => h.Reservations)
                 .HasForeignKey(r => r.HotelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(r => r.Rooms)
+                .WithOne(rd => rd.Reservation)
+                .HasForeignKey(rd => rd.ReservationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(r => r.Guests)
+                .WithOne(rg => rg.Reservation)
+                .HasForeignKey(rg => rg.ReservationId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

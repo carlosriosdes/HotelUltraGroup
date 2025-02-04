@@ -11,5 +11,6 @@
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public DocumentType DocumentType { get; set; }
+        public ICollection<ReservationDetailGuest> ReservationDetailGuests { get; set; } = [];
     }
 }

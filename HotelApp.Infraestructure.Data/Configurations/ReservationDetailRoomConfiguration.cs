@@ -11,14 +11,14 @@ namespace HotelApp.Infraestructure.Persistence.Configurations
             builder.HasKey(rdr => rdr.Id);
 
             builder.HasOne(rdr => rdr.Reservation)
-                .WithMany()
+                .WithMany(r => r.Rooms)
                 .HasForeignKey(rdr => rdr.ReservationId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(rdr => rdr.Room)
-                .WithMany()
+                .WithMany(g => g.ReservationDetailRooms)
                 .HasForeignKey(rdr => rdr.RoomId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

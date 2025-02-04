@@ -10,5 +10,7 @@
         public string EmergencyContactName { get; set; }
         public string EmergencyContactPhone { get; set; }
         public Hotel Hotel { get; set; }
+        public ICollection<ReservationDetailRoom> Rooms { get; set; } = [];
+        public ICollection<ReservationDetailGuest> Guests { get; set; } = [];
     }
 }
