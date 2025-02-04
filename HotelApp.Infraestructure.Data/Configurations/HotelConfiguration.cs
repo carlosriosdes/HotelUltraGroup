@@ -23,9 +23,6 @@ namespace HotelApp.Infraestructure.Persistence.Configurations
             builder.Property(h => h.City)
                    .IsRequired()
                    .HasMaxLength(50);
-
-            builder.Property(h => h.IsActive)
-                   .HasDefaultValue(true);
         }
     }
 }

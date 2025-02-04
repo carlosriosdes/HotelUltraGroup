@@ -14,32 +14,31 @@ namespace HotelApp.Infraestructure.Persistence.Configurations
 
             builder.Property(r => r.Location)
                 .IsRequired() 
-                .HasMaxLength(50);
+                .HasMaxLength(100); 
 
             builder.Property(r => r.BasePrice)
-                .HasColumnType("decimal(18,2)")
-                .IsRequired();
+                .HasColumnType("decimal(18,2)") 
+                .IsRequired(); 
 
             builder.Property(r => r.Tax)
-                .HasColumnType("decimal(18,2)")
-                .IsRequired();
+                .HasColumnType("decimal(18,2)") 
+                .IsRequired(); 
 
             builder.Property(r => r.IsActive)
                 .IsRequired()
-                .HasDefaultValue(true);
+                .HasDefaultValue(true); 
 
             builder.HasOne(r => r.Hotel)
                 .WithMany(h => h.Rooms) 
                 .HasForeignKey(r => r.HotelId) 
-                .OnDelete(DeleteBehavior.Cascade); 
-
+                .OnDelete(DeleteBehavior.SetNull); 
 
             builder.HasOne(r => r.RoomType)
-                .WithMany() 
-                .HasForeignKey(r => r.IdRoomType) 
+                .WithMany(h => h.Rooms) 
+                .HasForeignKey(r => r.RoomTypeId) 
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasIndex(r => r.HotelId);
+            builder.HasIndex(r => r.HotelId); 
         }
     }
 }
