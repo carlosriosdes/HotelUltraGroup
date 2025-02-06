@@ -36,12 +36,12 @@ namespace HotelApp.Infraestructure.Persistence.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(r => r.Rooms)
-                .WithOne(rd => rd.Reservation)
+                .WithOne(r => r.Reservation)
                 .HasForeignKey(rd => rd.ReservationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(r => r.Guests)
-                .WithOne(rg => rg.Reservation)
+                .WithOne(r => r.Reservation)
                 .HasForeignKey(rg => rg.ReservationId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

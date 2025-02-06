@@ -2,10 +2,10 @@
 {
     public static class ResponseMessages
     {
-        public const string Success = "Operación realizada con éxito.";
-        public const string NotFound = "Recurso no encontrado.";
-        public const string BadRequest = "Solicitud incorrecta.";
-        public const string InternalServerError = "Se produjo un error inesperado.";
-        public const string Unauthorized = "No autorizado para realizar esta acción.";
+        public const string Success = "Operation completed successfully.";
+        public const string NotFound = "Resource not found.";
+        public const string BadRequest = "Bad Request.";
+        public const string InternalServerError = "An unexpected error has occurred.";
+        public const string Unauthorized = "Not authorized to perform this action.";
     }
 }

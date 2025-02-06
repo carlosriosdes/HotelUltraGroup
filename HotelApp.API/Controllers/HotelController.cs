@@ -1,6 +1,7 @@
 ﻿using HotelApp.API.DTOs.Hotel;
 using HotelApp.API.Mappers;
 using HotelApp.Application.Contracts;
+using HotelApp.Application.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelApp.API.Controllers
@@ -29,11 +30,11 @@ namespace HotelApp.API.Controllers
                 }
 
                 var hotelDtos = hotels.Select(HotelMapper.HotelToDTO);
-                return Ok(hotelDtos);
+                return Ok(new { message = ResponseMessages.Success, hotelDtos });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Se produjo un error al consultar los hoteles.", error = ex.Message });
+                return StatusCode(500, new { message = ResponseMessages.InternalServerError, error = ex.Message });
             }
         }
 
@@ -76,7 +77,7 @@ namespace HotelApp.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Se produjo un error al agregar el hotel.", error = ex.Message });
+                return StatusCode(500, new { message = ResponseMessages.InternalServerError, error = ex.Message });
             }
         }
 
@@ -131,16 +132,16 @@ namespace HotelApp.API.Controllers
 
                 if (hotel == null)
                 {
-                    return NotFound(new { message = "No se encontró el hotel." });
+                    return NotFound(new { message = ResponseMessages.NotFound });
                 }
 
                 await _hotelService.UpdateHotelStatusAsync(updateStatusDto.IsActive, hotel);
 
-                return Ok(new { message = "Estado del hotel actualizado correctamente.", isActive = hotel.IsActive });
+                return Ok(new { message = ResponseMessages.Success, isActive = hotel.IsActive });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Se produjo un error al actualizar el estado del hotel.", error = ex.Message });
+                return StatusCode(500, new { message = ResponseMessages.InternalServerError, error = ex.Message });
             }
         }
     }

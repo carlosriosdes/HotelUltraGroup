@@ -172,7 +172,7 @@ namespace HotelApp.Infraestructure.Persistence.Migrations
 
                     b.HasIndex("ReservationId");
 
-                    b.ToTable("ReservationDetailGuests");
+                    b.ToTable("ReservationDetailGuests", (string)null);
                 });
 
             modelBuilder.Entity("HotelApp.Domain.Entities.ReservationDetailRoom", b =>
@@ -189,13 +189,18 @@ namespace HotelApp.Infraestructure.Persistence.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RoomId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ReservationId");
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("ReservationDetailRooms");
+                    b.HasIndex("RoomId1");
+
+                    b.ToTable("ReservationDetailRooms", (string)null);
                 });
 
             modelBuilder.Entity("HotelApp.Domain.Entities.Room", b =>
@@ -306,14 +311,18 @@ namespace HotelApp.Infraestructure.Persistence.Migrations
                     b.HasOne("HotelApp.Domain.Entities.Reservation", "Reservation")
                         .WithMany("Rooms")
                         .HasForeignKey("ReservationId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HotelApp.Domain.Entities.Room", "Room")
-                        .WithMany("ReservationDetailRooms")
+                        .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("HotelApp.Domain.Entities.Room", null)
+                        .WithMany("ReservationDetailRooms")
+                        .HasForeignKey("RoomId1");
 
                     b.Navigation("Reservation");
 
