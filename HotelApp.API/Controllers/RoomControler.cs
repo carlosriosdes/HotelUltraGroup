@@ -1,8 +1,7 @@
-﻿using HotelApp.API.DTOs.Hotel;
-using HotelApp.API.DTOs.Room;
+﻿using HotelApp.API.DTOs.Room;
 using HotelApp.API.Mappers;
 using HotelApp.Application.Contracts;
-using HotelApp.Domain.Entities;
+using HotelApp.Application.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelApp.API.Controllers
@@ -35,7 +34,7 @@ namespace HotelApp.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Se produjo un error al agregar el hotel.", error = ex.Message });
+                return StatusCode(500, new { message = ResponseMessages.InternalServerError, error = ex.Message });
             }
         }
 
@@ -48,7 +47,7 @@ namespace HotelApp.API.Controllers
 
                 if (roomEntity == null)
                 {
-                    return NotFound();
+                    return NotFound(new { message = ResponseMessages.NotFound });
                 }
 
                 var roomDto = RoomMapper.RoomToDTO(roomEntity);
@@ -56,7 +55,7 @@ namespace HotelApp.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Se produjo un error al consultar las habitaciones.", error = ex.Message });
+                return StatusCode(500, new { message = ResponseMessages.InternalServerError, error = ex.Message });
             }
         }
 
@@ -74,16 +73,16 @@ namespace HotelApp.API.Controllers
 
                 if (hotel == null)
                 {
-                    return NotFound(new { message = "No se encontró el hotel." });
+                    return NotFound(new { message = ResponseMessages.NotFound });
                 }
 
                 await _roomService.AssignRoomsToHotelAsync(assignHotelToRoomsDTO.HotelId, assignHotelToRoomsDTO.ListRoomsId);
 
-                return Ok(new { message = "Se actualizaron las habitaciones de forma correcta.", isActive = hotel.IsActive });
+                return Ok(new { message = ResponseMessages.Success, isActive = hotel.IsActive });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Se produjo un error al actualizar las habitaciones.", error = ex.Message });
+                return StatusCode(500, new { message = ResponseMessages.InternalServerError, error = ex.Message });
             } 
         }
 
@@ -107,11 +106,11 @@ namespace HotelApp.API.Controllers
                 var updatedRoom = RoomMapper.UpdateRoomDTOtoModel(room, roomEntity);
                 var result = await _roomService.UpdateRoomAsync(updatedRoom);
                 var updateHotelDto = RoomMapper.ResponseUpdateRoomToDTO(result);
-                return Ok(new { message = "Se actualizo el room correctamente.", updateHotelDto });
+                return Ok(new { message = ResponseMessages.Success, updateHotelDto });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Se produjo un error al actualizar el room.", error = ex.Message });
+                return StatusCode(500, new { message = ResponseMessages.InternalServerError, error = ex.Message });
             }
         }
 
@@ -129,42 +128,17 @@ namespace HotelApp.API.Controllers
 
                 if (room == null)
                 {
-                    return NotFound(new { message = "No se encontró el room." });
+                    return NotFound(new { message = ResponseMessages.NotFound });
                 }
 
                 await _roomService.UpdateRoomStatusAsync(updateStatusDto.IsActive, room);
 
-                return Ok(new { message = "Estado del room actualizado correctamente.", isActive = room.IsActive });
+                return Ok(new { message = ResponseMessages.Success, isActive = room.IsActive });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Se produjo un error al actualizar el estado del room.", error = ex.Message });
+                return StatusCode(500, new { message = ResponseMessages.InternalServerError, error = ex.Message });
             }
         }
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<GetRoomDTO>>> GetAllRooms()
-        //{
-        //    try
-        //    {
-        //        var rooms = await _roomService.GetAllRoomsAsync();
-
-        //        if (rooms == null || !rooms.Any())
-        //        {
-        //            return NoContent();
-        //        }
-
-        //        var roomDtos = rooms.Select(RoomMapper.RoomToDTO);
-        //        return Ok(roomDtos);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, new { message = "Se produjo un error al consultar las habitaciones.", error = ex.Message });
-        //    }
-        //}
-
-
-
-
-
     }
 }

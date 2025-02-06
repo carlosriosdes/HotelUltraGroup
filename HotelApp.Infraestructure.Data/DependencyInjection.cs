@@ -1,6 +1,7 @@
 ﻿using HotelApp.Application.Contracts;
 using HotelApp.Application.Services;
 using HotelApp.Domain.Contracts;
+using HotelApp.Infraestructure.Persistence.Email;
 using HotelApp.Infraestructure.Persistence.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +16,11 @@ namespace HotelApp.Infraestructure.Persistence
 
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IRoomRepository, RoomRepository>();
+
+            services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+
+            services.AddSingleton<IEmailService, SmtpEmailService>();
         }
     }
 }

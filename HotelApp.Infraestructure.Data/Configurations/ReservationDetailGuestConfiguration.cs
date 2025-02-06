@@ -8,16 +8,24 @@ namespace HotelApp.Infraestructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ReservationDetailGuest> builder)
         {
-            builder.HasKey(rdg => rdg.Id);
+            builder.ToTable("ReservationDetailGuests");
 
-            builder.HasOne(rdg => rdg.Reservation)
-                .WithMany(r => r.Guests)  
-                .HasForeignKey(rdg => rdg.ReservationId)
+            builder.HasKey(rd => rd.Id);
+
+            builder.Property(rd => rd.ReservationId)
+                .IsRequired();
+
+            builder.Property(rd => rd.GuestId)
+                .IsRequired();
+
+            builder.HasOne(rd => rd.Reservation)
+                .WithMany(r => r.Guests)
+                .HasForeignKey(rd => rd.ReservationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(rdg => rdg.Guest)
-                .WithMany(g => g.ReservationDetailGuests)  
-                .HasForeignKey(rdg => rdg.GuestId)
+            builder.HasOne(rd => rd.Guest)
+                .WithMany(g => g.ReservationDetailGuests) 
+                .HasForeignKey(rd => rd.GuestId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
